@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presence Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #message {
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Votre Présence</h1>
+        <button id="absent-button" onclick="markAbsent()">ABSENT(E)</button>
+        <button id="present-button" onclick="markPresent()">PRÉSENT(E)</button>
+        <div id="message"></div>
+        <div id="numbers" style="display: none;"></div>
+    </div>
+
+    <script>
+        function markAbsent() {
+            document.getElementById("message").innerText = "Vous êtes absent(e).";
+            document.getElementById("absent-button").disabled = true;
+            document.getElementById("present-button").disabled = true;
+            sendPresenceStatus("absent");
+        }
+
+        function markPresent() {
+            document.getElementById("message").innerText = "Veuillez choisir un nombre.";
+            document.getElementById("absent-button").disabled = true;
+            document.getElementById("present-button").disabled = true;
+            // Display the numbers
+            var numbersDiv = document.getElementById("numbers");
+            numbersDiv.style.display = "block";
+            displayNumbers();
+        }
+
+        function sendPresenceStatus(status) {
+            // Your AJAX request here
+        }
+
+        function displayNumbers() {
+            var numbersDiv = document.getElementById("numbers");
+            var constantNumber = 9; // Constant number
+            var randomNumbers = [Math.floor(Math.random() * 100) + 1, Math.floor(Math.random() * 100) + 1]; // Generate two random numbers
+
+            // Display the constant number and two random numbers
+            numbersDiv.innerHTML = "<p>Choisissez un nombre :</p>";
+            numbersDiv.innerHTML += "<label><input type='radio' name='choixNombre' value='" + constantNumber + "'>" + constantNumber + "</label><br>";
+            numbersDiv.innerHTML += "<label><input type='radio' name='choixNombre' value='" + randomNumbers[0] + "'>" + randomNumbers[0] + "</label><br>";
+            numbersDiv.innerHTML += "<label><input type='radio' name='choixNombre' value='" + randomNumbers[1] + "'>" + randomNumbers[1] + "</label><br>";
+
+            // Enable the buttons after displaying the numbers
+            document.getElementById("absent-button").disabled = false;
+            document.getElementById("present-button").disabled = false;
+        }
+    </script>
+</body>
+</html>
